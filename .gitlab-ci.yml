@@ -12,17 +12,17 @@ variables:
   script:
     - echo "====== Build Cocos Web Mobile ======"
     - |
-      if [[ -d "./$COCOS_PROJECT_DIR/build/web-mobile" ]]; then
+      if [[ -d "$COCOS_PROJECT_DIR/build/web-mobile" ]]; then
         echo "Using cache with key $CI_COMMIT_SHA"
         exit 0
       fi
     - node --version
-    - npm install --prefix "./$COCOS_PROJECT_DIR"
+    - npm install --prefix "$COCOS_PROJECT_DIR"
     - set +e
-    - /Applications/CocosCreator/Creator/$COCOS_VERSION/CocosCreator.app/Contents/MacOS/CocosCreator --project "./$COCOS_PROJECT_DIR" --build "platform=web-mobile;debug=false;webOrientation=landscape;md5Cache=true;replaceSplashScreen=true"
+    - /Applications/CocosCreator/Creator/$COCOS_VERSION/CocosCreator.app/Contents/MacOS/CocosCreator --project "$COCOS_PROJECT_DIR" --build "platform=web-mobile;debug=false;webOrientation=landscape;md5Cache=true;replaceSplashScreen=true"
     - set -e
     - |
-      if [ -z "$(ls -A ./$COCOS_PROJECT_DIR/build/web-mobile)" ]; then
+      if [ -z "$(ls -A $COCOS_PROJECT_DIR/build/web-mobile)" ]; then
         echo -e "\033[0;31mFolder build is empty, please check the build script"
         exit 1
       fi
