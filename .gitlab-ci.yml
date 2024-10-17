@@ -6,3 +6,42 @@ include:
 variables:
   COCOS_VERSION: "3.8.0"
   COCOS_PROJECT_DIR: .
+
+.build_cocos_creator_script: &build_cocos_creator_script
+  stage: test
+  script:
+    - echo "====== Build Cocos Web Mobile ======"
+    - |
+      if [[ -d "./$COCOS_PROJECT_DIR/build/web-mobile" ]]; then
+        echo "Using cache with key $CI_COMMIT_SHA"
+        exit 0
+      fi
+    - node --version
+    - npm run install-dependencies --prefix "./$COCOS_PROJECT_DIR"
+    - set +e
+    - /Applications/CocosCreator/Creator/$COCOS_VERSION/CocosCreator.app/Contents/MacOS/CocosCreator --project "./$COCOS_PROJECT_DIR" --build "platform=web-mobile;debug=false;webOrientation=landscape;md5Cache=true;replaceSplashScreen=true"
+    - set -e
+    - |
+      if [ -z "$(ls -A ./$COCOS_PROJECT_DIR/build/web-mobile)" ]; then
+        echo -e "\033[0;31mFolder build is empty, please check the build scritp"
+        exit 1
+      fi
+  tags:
+    - cocos-new
+  artifacts:
+    when: always
+    paths:
+      - $COCOS_PROJECT_DIR/build/web-mobile
+    expire_in: 1 day
+  cache:
+    - key:
+        files:
+          - $COCOS_PROJECT_DIR/package.json
+          - $COCOS_PROJECT_DIR/package-lock.json
+      paths:
+        - $COCOS_PROJECT_DIR/node_modules
+    - key: $CI_COMMIT_SHORT_SHA
+      paths:
+        - $COCOS_PROJECT_DIR/build/web-mobile
+.base_build_cocos:
+  <<: *build_cocos_creator_script
