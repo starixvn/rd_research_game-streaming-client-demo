@@ -20,7 +20,7 @@ export class Main extends Component {
   private lastAction = "";
 
   protected onLoad(): void {
-    const socket = io("ws://game-streaming-service-demo.lumigame.com");
+    const socket = io("wss://game-streaming-service-demo.lumigame.com");
 
     socket.on("error", (error) => {
       console.error(error);
