@@ -1,0 +1,13 @@
+{
+  "name": "game-streaming-client-demo",
+  "uuid": "83a3f042-617c-48a7-af1c-f4a1af845dee",
+  "creator": {
+    "version": "3.8.4"
+  },
+  "dependencies": {
+    "hls.js": "1.5.16"
+  },
+  "devDependencies": {
+    "@types/socket.io-client": "3.0.0"
+  }
+}
