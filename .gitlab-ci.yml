@@ -23,7 +23,7 @@ variables:
     - set -e
     - |
       if [ -z "$(ls -A ./$COCOS_PROJECT_DIR/build/web-mobile)" ]; then
-        echo -e "\033[0;31mFolder build is empty, please check the build scritp"
+        echo -e "\033[0;31mFolder build is empty, please check the build script"
         exit 1
       fi
   tags:
