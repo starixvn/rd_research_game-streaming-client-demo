@@ -1,12 +1,12 @@
 import { _decorator, Component, Label, size } from "cc";
-import { HLSPlayer } from "./HLSPlayer";
+import { VideoPlayer } from "./VideoPlayer";
 
 const { ccclass, property } = _decorator;
 
 @ccclass("Main")
 export class Main extends Component {
-  @property(HLSPlayer)
-  protected player: HLSPlayer = null;
+  @property(VideoPlayer)
+  protected player: VideoPlayer = null;
 
   @property(Label)
   private bandwidth: Label = null;
@@ -50,14 +50,14 @@ export class Main extends Component {
 
   onClick720p() {
     this.lastAction = "onClick720p";
-    this.player.updateSize(size(854, 480));
+    // this.player.updateSize(size(854, 480));
     this.player.videoSource = this.videoSource720p;
     this.player.currentTime = this.currentTime;
   }
 
   onClick240p() {
     this.lastAction = "onClick240p";
-    this.player.updateSize(size(426, 240));
+    // this.player.updateSize(size(426, 240));
     this.player.videoSource = this.videoSource240p;
     this.player.currentTime = this.currentTime;
   }
